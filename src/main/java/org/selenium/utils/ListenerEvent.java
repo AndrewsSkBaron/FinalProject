@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ListenerEvent implements TestWatcher {
-    WebDriver driver = Driver.getInstance().getWebDriver();
+    WebDriver driver = Driver.getInstance();
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
         Allure.addAttachment("Error", screenShot());

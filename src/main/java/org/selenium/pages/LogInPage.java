@@ -26,7 +26,7 @@ public class LogInPage extends BasePage {
         if (!isElementPresent(errorAvailableMail)) {
             new RegistrationPage().createAccount();
         } else login();
-            return new MyAccountPage();
+        return new MyAccountPage();
     }
 
 }

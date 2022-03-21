@@ -7,24 +7,16 @@ import java.util.Locale;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class MyAccountPage extends BasePage{ ;
-    private By waitContainer = By.xpath("//div[@id='columns']");
-    private By title = By.xpath("//h1[@class='page-heading']");
+    private By breadcrumb = By.xpath("//a[normalize-space()='My account']");
     private By buttonWish = By.xpath("//a[@title='My wishlists']");
 
-    public String getTitleExpected() {
-        wait.until(visibilityOfElementLocated(waitContainer));
-        String text = driver.findElement(title).getText().toLowerCase(Locale.ROOT);
-        return text;
-    }
-
-    public String getTitleActual() {
-        wait.until(visibilityOfElementLocated(waitContainer));
-        String text = driver.findElement(title).getText().toLowerCase(Locale.ROOT);
+    public String getBreadcrumbText() {
+        String text = driver.findElement(breadcrumb).getText().toLowerCase(Locale.ROOT);
         return text;
     }
 
     public WishListPage goToMyWishList() {
-        wait.until(visibilityOfElementLocated(waitContainer));
+        wait.until(visibilityOfElementLocated(breadcrumb));
         driver.findElement(buttonWish).click();
         return new WishListPage();
     }

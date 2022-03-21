@@ -4,8 +4,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class LocalWebDriver implements Strategy{
+
     @Override
     public WebDriver getWebDriver(String browser) {
+        String path = "src/main/resources/drivers/";
+        String gecko = "webdriver.gecko.driver";
+        String chrome = "webdriver.chrome.driver";
         switch (browser) {
             case "chrome" -> {
                 System.setProperty(chrome, path + "chromedriver.exe");

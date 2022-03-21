@@ -36,6 +36,7 @@ public class Product {
     public void setSize(String size) {
         this.size = size;
     }
+
     public double getPrice() {
         return price;
     }

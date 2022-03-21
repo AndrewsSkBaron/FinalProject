@@ -11,8 +11,6 @@ import java.util.List;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class DressesPage extends BasePage {
-    private Actions action;
-
     private By categoryDresses = By.xpath("//div[@id='block_top_menu']/ul/li[2]/a");
     private By popup = By.xpath("//div[@id='layer_cart']");
     private By continueShop = By.xpath("//span[@title='Continue shopping']");
@@ -24,12 +22,13 @@ public class DressesPage extends BasePage {
     private By productAttribute = By.xpath("//span[@id='layer_cart_product_attributes']");
     private By productPrice = By.xpath("//span[@id='layer_cart_product_price']");
 
-    private List<Product> productList = new ArrayList<>();
+    private List<Product> productList;
 
     public List<Product> addToCart() {
         driver.findElement(categoryDresses).click();
         wait.until(visibilityOfElementLocated(containerProducts));
-        action = new Actions(driver);
+        Actions action = new Actions(driver);
+        productList = new ArrayList<>();
         for (WebElement item : driver.findElements(products)) {
             if (productList.size() != 3) {
                 action.moveToElement(item).click(item.findElement(addToCartButton)).build().perform();
@@ -41,16 +40,11 @@ public class DressesPage extends BasePage {
                 String price = driver.findElement(productPrice).getText();
                 String priseSub = price.substring(price.indexOf("$") + 1);
                 double p = Double.valueOf(priseSub);
-                productList.add(getProduct(name, color, size, p));
+                productList.add(new Product(name, color, size, p));
                 driver.findElement(continueShop).click();
             }
         }
         return productList;
-    }
-
-    private Product getProduct(String name, String color, String size, double price) {
-        Product product = new Product(name, color, size, price);
-        return product;
     }
 
     public double getTotalPrice() {

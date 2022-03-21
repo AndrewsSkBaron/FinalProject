@@ -9,17 +9,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.selenium.driver.Driver;
 import org.selenium.pages.MainPage;
 import org.selenium.pages.MyAccountPage;
+import org.selenium.utils.JsonParser;
 
 public abstract class BaseTest {
     protected static WebDriver driver;
     protected static WebDriverWait wait;
     protected static MainPage mainHome;
     protected static MyAccountPage account;
+    private static JsonParser parser;
 
     @BeforeAll
     @Step("Beginning the action")
     public static void setUp() {
-        driver = Driver.getInstance().getWebDriver();
+        parser = new JsonParser();
+        parser.createJson();
+        driver = Driver.getInstance();
         wait = new WebDriverWait(driver, 30);
     }
 

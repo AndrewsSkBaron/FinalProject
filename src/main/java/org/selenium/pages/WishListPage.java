@@ -71,17 +71,11 @@ public class WishListPage extends BasePage {
         return new ProductDetailPage();
     }
 
-    public String getAutoCreateNameListActual() {
-        return driver.findElement(name).getText().toLowerCase(Locale.ROOT);
-    }
-    public String getAutoCreateNameListExpected() {
+    public String getAutoCreateNameList() {
         return driver.findElement(name).getText().toLowerCase(Locale.ROOT);
     }
 
-    public String getManualCreateNameListActual() {
-        return driver.findElement(name).getText().toLowerCase(Locale.ROOT);
-    }
-    public String getManualCreateNameListExpected() {
+    public String getManualCreateNameList() {
         return driver.findElement(name).getText().toLowerCase(Locale.ROOT);
     }
 

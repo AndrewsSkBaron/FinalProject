@@ -14,11 +14,12 @@ public class CartPage extends BasePage {
     private By waitContainer = By.xpath("//div[@id='center_column']");
     private By cartTotal = By.xpath("//span[@id='total_price']");
     private By rows = By.xpath("//table/tbody/tr");
-    private List<Product> cartList = new ArrayList<>();
+    private List<Product> cartList;
 
     public List<Product> getCartList() {
         driver.findElement(cartButton).click();
         wait.until(visibilityOfElementLocated(waitContainer));
+        cartList = new ArrayList<>();
         for (WebElement row : driver.findElements(rows)) {
             String attribute = row.findElement(By.xpath("./td[2]/small/a")).getText();
             String name = row.findElement(By.xpath("./td[2]//p/a")).getText();
@@ -27,14 +28,9 @@ public class CartPage extends BasePage {
             String price = row.findElement(By.xpath("./td[6]")).getText();
             String priseSub = price.substring(price.indexOf("$") + 1);
             double p = Double.valueOf(priseSub);
-            cartList.add(getProduct(name, color, size, p));
+            cartList.add(new Product(name, color, size, p));
         }
         return cartList;
-    }
-
-    private Product getProduct(String name, String color, String size, double price) {
-        Product product = new Product(name, color, size, price);
-        return product;
     }
 
     public double getTotalCart() {

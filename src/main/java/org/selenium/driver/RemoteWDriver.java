@@ -9,11 +9,10 @@ import java.net.URL;
 
 
 public class RemoteWDriver implements Strategy {
-    private static DesiredCapabilities dc;
 
     @Override
     public WebDriver getWebDriver(String browser) {
-        dc = new DesiredCapabilities();
+        DesiredCapabilities dc = new DesiredCapabilities();
         URL url;
 
         try {

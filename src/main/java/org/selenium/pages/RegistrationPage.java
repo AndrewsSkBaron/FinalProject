@@ -1,6 +1,7 @@
 package org.selenium.pages;
 
 import org.openqa.selenium.By;
+
 public class RegistrationPage extends BasePage {
     private By waitForm = By.xpath("//form[@id='account-creation_form']");
     private By checkBox = By.xpath("//input[@id='id_gender1']");

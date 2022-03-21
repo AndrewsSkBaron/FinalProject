@@ -16,6 +16,7 @@ public final class User {
     public String getFirstName() {
         return firstName;
     }
+
     public String getLastName() {
         return lastName;
     }

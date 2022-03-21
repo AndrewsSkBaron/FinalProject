@@ -23,14 +23,14 @@ public class PageTest extends BaseTest {
     @Epic(value = "Authorization")
     @Description("Test description: Create account (Registration)")
     public void checkRegistration() {
-        assertEquals(account.getTitleExpected(), account.getTitleActual());
+        assertEquals( account.getBreadcrumbText(), "my account");
     }
 
     @Test
     @Epic(value = "Authorization")
     @Description("Test description: Log in (Sign In))")
     public void checkSignIn() {
-        assertEquals(account.getTitleExpected(), account.getTitleActual());
+        assertEquals(account.getBreadcrumbText(), "my account");
     }
 
     @Test
@@ -61,7 +61,7 @@ public class PageTest extends BaseTest {
         product = new ProductDetailPage();
         wishList.createListAutomatically();
         product.addInWishList().goToMyAccount();
-        assertEquals(wishList.getAutoCreateNameListExpected(), wishList.getAutoCreateNameListActual());
+        assertEquals("my wishlist", wishList.getAutoCreateNameList());
     }
 
     @Test
@@ -72,7 +72,7 @@ public class PageTest extends BaseTest {
         product = new ProductDetailPage();
         wishList.createListManually();
         product.addInWishList().goToMyAccount();
-        assertEquals(wishList.getManualCreateNameListExpected(), wishList.getManualCreateNameListActual());
+        assertEquals("test list", wishList.getManualCreateNameList());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class PageTest extends BaseTest {
         product = new ProductDetailPage();
         wishList.createListAutomatically();
         product.addInWishList().goToMyAccount();
-        assertEquals(wishList.productAdded().getNameOfProductExpected(), product.getNameOfProductActual());
+        assertEquals(wishList.productAdded().getNameOfProduct(), product.getNameOfProduct());
     }
 
     @Test
@@ -94,6 +94,6 @@ public class PageTest extends BaseTest {
         product = new ProductDetailPage();
         wishList.createListManually();
         product.addInWishList().goToMyAccount();
-        assertEquals(wishList.productAdded().getNameOfProductExpected(), product.getNameOfProductActual());
+        assertEquals(wishList.productAdded().getNameOfProduct(), product.getNameOfProduct());
     }
 }

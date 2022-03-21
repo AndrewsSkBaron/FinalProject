@@ -15,13 +15,7 @@ public class ProductDetailPage extends BasePage {
     private By closeButton = By.xpath("//a[@title='Close']");
     private By account = By.xpath("//a[@title='View my customer account']");
 
-    public String getNameOfProductExpected() {
-        wait.until(visibilityOfElementLocated(waitContainer));
-        String name = driver.findElement(productName).getText().toLowerCase(Locale.ROOT);
-        return name;
-    }
-
-    public String getNameOfProductActual() {
+    public String getNameOfProduct() {
         wait.until(visibilityOfElementLocated(waitContainer));
         String name = driver.findElement(productName).getText().toLowerCase(Locale.ROOT);
         return name;
@@ -38,15 +32,5 @@ public class ProductDetailPage extends BasePage {
         driver.findElement(account).click();
         return new MyAccountPage().goToMyWishList();
     }
-
-
-
-//    public String addInWishList(){
-//        driver.findElement(buttonAddWish).click();
-//        wait.until(visibilityOfElementLocated(waitPopup));
-//        String text = driver.findElement(textPopup).getText();
-//        System.out.println(text);
-//        return text;
-//    }
 
 }
