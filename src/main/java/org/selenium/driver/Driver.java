@@ -1,10 +1,6 @@
 package org.selenium.driver;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +17,7 @@ public class Driver {
 
     public static WebDriver getInstance() {
         if (webDriver == null) {
-            Strategy driverStrategy;
+            WebDriverStrategy driverStrategy;
             switch (typeDriver.toLowerCase(Locale.ROOT)) {
                 case "local" -> driverStrategy = new LocalWebDriver();
                 case "remote" -> driverStrategy = new RemoteWDriver();

@@ -1,6 +1,8 @@
 package org.selenium.pages;
 
 import org.openqa.selenium.By;
+import org.selenium.ojb.User;
+import org.selenium.utils.JsonParser;
 
 public class LogInPage extends BasePage {
     private By emailSignIn = By.xpath("//input[@id='email']");
@@ -10,23 +12,27 @@ public class LogInPage extends BasePage {
     private By buttonCreateAccount = By.xpath("//button[@id='SubmitCreate']");
     private By errorAvailableMail = By.xpath("//div[@id='create_account_error']//li");
 
-    public void login() {
+    public MyAccountPage login() {
         driver.findElement(emailSignIn).sendKeys(user.getEmail());
         driver.findElement(passSignIn).sendKeys(user.getPassword());
         driver.findElement(buttonSignIn).click();
+        return new MyAccountPage();
     }
 
-    private void registration() {
+    public RegistrationPage registration() {
+        setInfoReg();
+        if (isElementPresent(errorAvailableMail)) {
+            new JsonParser().createJson();
+            new JsonParser().readUserFromGson();
+            driver.findElement(inputToCreateAccount).clear();
+            setInfoReg();
+        }
+        return new RegistrationPage();
+    }
+
+    private void setInfoReg() {
         driver.findElement(inputToCreateAccount).sendKeys(user.getEmail());
         driver.findElement(buttonCreateAccount).click();
-    }
-
-    public MyAccountPage authentication() {
-        registration();
-        if (!isElementPresent(errorAvailableMail)) {
-            new RegistrationPage().createAccount();
-        } else login();
-        return new MyAccountPage();
     }
 
 }

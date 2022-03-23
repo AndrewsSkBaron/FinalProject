@@ -22,15 +22,12 @@ public class DressesPage extends BasePage {
     private By productAttribute = By.xpath("//span[@id='layer_cart_product_attributes']");
     private By productPrice = By.xpath("//span[@id='layer_cart_product_price']");
 
-    private List<Product> productList;
-
-    public List<Product> addToCart() {
+    public List<Product> addToCart(int count, List<Product> products) {
         driver.findElement(categoryDresses).click();
         wait.until(visibilityOfElementLocated(containerProducts));
         Actions action = new Actions(driver);
-        productList = new ArrayList<>();
-        for (WebElement item : driver.findElements(products)) {
-            if (productList.size() != 3) {
+        for (WebElement item : driver.findElements(this.products)) {
+            if (products.size() != count) {
                 action.moveToElement(item).click(item.findElement(addToCartButton)).build().perform();
                 wait.until(visibilityOfElementLocated(popup));
                 String attributes = driver.findElement(productAttribute).getText();
@@ -40,16 +37,18 @@ public class DressesPage extends BasePage {
                 String price = driver.findElement(productPrice).getText();
                 String priseSub = price.substring(price.indexOf("$") + 1);
                 double p = Double.valueOf(priseSub);
-                productList.add(new Product(name, color, size, p));
+                products.add(new Product(name, color, size, p));
                 driver.findElement(continueShop).click();
             }
         }
-        return productList;
+        return products;
     }
 
-    public double getTotalPrice() {
-        double total = productList.get(0).getPrice() + productList.get(1).getPrice() + productList.get(2).getPrice();
-        System.out.println(total);
+    public double getTotalPrice(List<Product> products) {
+        double total = 0;
+        for(Product product : products) {
+            total += product.getPrice();
+        }
         return total;
     }
 }

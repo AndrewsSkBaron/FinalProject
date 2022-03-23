@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class RemoteWDriver implements Strategy {
+public class RemoteWDriver implements WebDriverStrategy {
 
     @Override
     public WebDriver getWebDriver(String browser) {

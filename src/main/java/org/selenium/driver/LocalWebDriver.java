@@ -3,7 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class LocalWebDriver implements Strategy{
+public class LocalWebDriver implements WebDriverStrategy {
 
     @Override
     public WebDriver getWebDriver(String browser) {

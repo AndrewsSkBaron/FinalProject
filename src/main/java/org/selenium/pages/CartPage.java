@@ -14,12 +14,11 @@ public class CartPage extends BasePage {
     private By waitContainer = By.xpath("//div[@id='center_column']");
     private By cartTotal = By.xpath("//span[@id='total_price']");
     private By rows = By.xpath("//table/tbody/tr");
-    private List<Product> cartList;
 
     public List<Product> getCartList() {
         driver.findElement(cartButton).click();
         wait.until(visibilityOfElementLocated(waitContainer));
-        cartList = new ArrayList<>();
+        List<Product> cartList = new ArrayList<>();
         for (WebElement row : driver.findElements(rows)) {
             String attribute = row.findElement(By.xpath("./td[2]/small/a")).getText();
             String name = row.findElement(By.xpath("./td[2]//p/a")).getText();

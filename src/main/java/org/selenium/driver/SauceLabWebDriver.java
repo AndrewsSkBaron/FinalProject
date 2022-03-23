@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class SauceLabWebDriver implements Strategy{
+public class SauceLabWebDriver implements WebDriverStrategy {
 
     @Override
     public WebDriver getWebDriver(String browser) {

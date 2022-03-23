@@ -17,12 +17,11 @@ public class WishListPage extends BasePage {
     private By table = By.xpath("//div[@id='block-history']");
     private By name = By.xpath("//tr/td[1]/a");
     private By buttonDelete = By.xpath("//a[@class='icon']");
-    private By topSellersList = By.xpath("//ul[@class='block_content products-block']");
+    private By topSellersList = By.xpath("//a[@class='product-name']");
     private By nameList = By.xpath("//input[@id='name']");
     private By saveButton = By.xpath("//button[@id='submitWishlist']");
     private By productContainer = By.xpath("//ul[@class='row wlp_bought_list']");
     private By productName = By.xpath("//a[@title='Product detail']");
-
 
     public WishListPage createListAutomatically() {
         if (isElementPresent(table) == true) {
@@ -47,20 +46,9 @@ public class WishListPage extends BasePage {
     }
 
     public ProductDetailPage choosingProduct() {
-        int size = 7;
-        int penultimate = random.nextInt(size);
-        int last = (penultimate + 2 + random.nextInt(size - 1)) % size;
-        int randomNumber = (penultimate + 3 + random.nextInt(size - 1)) % size;
-        for (WebElement product : driver.findElements(topSellersList)) {
-            if (randomNumber == last) {
-                randomNumber = (penultimate + size - 1) % size;
-            } else if(randomNumber == 0) {
-                randomNumber = 1;
-            }
-            penultimate = last;
-            last = randomNumber;
-            product.findElement(By.xpath("./li["+randomNumber+"]/a")).click();
-        }
+        int size = driver.findElements(topSellersList).size();
+        int randomNumber = random.nextInt(size + 1);
+        driver.findElements(topSellersList).get(randomNumber).click();
         return new ProductDetailPage();
     }
 
