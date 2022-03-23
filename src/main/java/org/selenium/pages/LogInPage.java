@@ -1,7 +1,6 @@
 package org.selenium.pages;
 
 import org.openqa.selenium.By;
-import org.selenium.ojb.User;
 import org.selenium.utils.JsonParser;
 
 public class LogInPage extends BasePage {
