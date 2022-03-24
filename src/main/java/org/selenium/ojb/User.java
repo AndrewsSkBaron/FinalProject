@@ -1,33 +1,15 @@
 package org.selenium.ojb;
 
-import com.github.javafaker.Address;
-
-import java.util.Date;
-
 public final class User {
     private String firstName;
     private String lastName;
     private String email;
     private String password;
-
-    /*Select Date of Birth*/
-//    private String date;
-//    private String month;
-//    private String year;
-
     private String company;
     private String address1;
     private String address2;
     private String city;
-
-//    /*Select state*/
-//    private String state;
-
     private String zip;
-//
-//    /*Select Country*/
-//    private String country;
-
     private String homePhone;
     private String mobilePhone;
     private String addressAlias;

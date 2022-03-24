@@ -2,7 +2,6 @@ package org.selenium.pages;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Locale;
@@ -29,25 +28,23 @@ public class WishListPage extends BasePage {
             alert = wait.until(ExpectedConditions.alertIsPresent());
             alert.accept();
         }
-        choosingProduct();
         return this;
     }
 
-    public WishListPage createListManually() {
+    public WishListPage createListManually(String name) {
         if (isElementPresent(table) == true) {
             driver.findElement(buttonDelete).click();
             alert = wait.until(ExpectedConditions.alertIsPresent());
             alert.accept();
         }
-        driver.findElement(nameList).sendKeys("Test List");
+        driver.findElement(nameList).sendKeys(name);
         driver.findElement(saveButton).click();
-        choosingProduct();
         return this;
     }
 
     public ProductDetailPage choosingProduct() {
         int size = driver.findElements(topSellersList).size();
-        int randomNumber = random.nextInt(size + 1);
+        int randomNumber = random.nextInt(1,size);
         driver.findElements(topSellersList).get(randomNumber).click();
         return new ProductDetailPage();
     }
@@ -59,11 +56,7 @@ public class WishListPage extends BasePage {
         return new ProductDetailPage();
     }
 
-    public String getAutoCreateNameList() {
-        return driver.findElement(name).getText().toLowerCase(Locale.ROOT);
-    }
-
-    public String getManualCreateNameList() {
+    public String getCreateNameList() {
         return driver.findElement(name).getText().toLowerCase(Locale.ROOT);
     }
 

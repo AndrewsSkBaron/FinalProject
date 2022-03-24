@@ -6,76 +6,72 @@ import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.selenium.ojb.Product;
-import org.selenium.utils.ListenerEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(ListenerEvent.class)
 public class PageTest extends BaseTest {
-    private List<Product> products = new ArrayList<>();
+
     @BeforeEach
     @Step("Beginning the action")
     public void getStart() {
-        mainPage.logIn();
-        signIn.login();
-        account.goToMyWishList();
+        logInPage = mainPage.logIn();
+        logInPage.login();
+        myAccountPage.goToMyWishList();
     }
 
     @Test
     @Epic(value = "Cart")
     @Description("Test description: Add product to car")
     public void checkCartAdded() {
-        assertEquals(dresses.addToCart(3, products).toString(), cart.getCartList().toString());
+        assertEquals(dressesPage.addToCart(3).toString(), cartPage.getCartList().toString());
     }
 
     @Test
     @Epic(value = "Cart")
     @Description("Test description: Comparing amount with the total ")
     public void checkCartTotal() {
-        dresses.addToCart(3,products);
-        cart.getCartList();
-        assertEquals(dresses.getTotalPrice(products), cart.getTotalCart());
+        List<Product> products = dressesPage.addToCart(3);
+        cartPage.getCartList();
+        assertEquals(dressesPage.getTotalPrice(products), cartPage.getTotalCart());
     }
 
     @Test
     @Epic(value = "Wishlist automation")
     @Description("Test description: Wishlist was created automatically")
     public void checkAutoCreateNameList() {
-        wishList.createListAutomatically();
-        product.addInWishList().goToMyAccount();
-        assertEquals("my wishlist", wishList.getAutoCreateNameList());
+        wishListPage.createListAutomatically().choosingProduct();
+        productDetailPage.addInWishList().goToMyAccount().goToMyWishList();
+        assertEquals("my wishlist", wishListPage.getCreateNameList());
     }
 
     @Test
     @Epic(value = "Wishlist manual")
     @Description("Test description: Wishlist was created manual")
     public void checkManualCreateNameList() {
-        wishList.createListManually();
-        product.addInWishList().goToMyAccount();
-        assertEquals("test list", wishList.getManualCreateNameList());
+        wishListPage.createListManually("Test List").choosingProduct();
+        productDetailPage.addInWishList().goToMyAccount().goToMyWishList();
+        assertEquals("test list", wishListPage.getCreateNameList());
     }
 
     @Test
     @Epic(value = "Wishlist automation")
     @Description("Test description: Wishlist was created automatically and product is in there")
     public void checkAutoCreateList() {
-        wishList.createListAutomatically();
-        product.addInWishList().goToMyAccount();
-        assertEquals(wishList.productAdded().getNameOfProduct(), product.getNameOfProduct());
+        wishListPage.createListAutomatically().choosingProduct();
+        productDetailPage.addInWishList().goToMyAccount().goToMyWishList();
+        assertEquals(wishListPage.productAdded().getNameOfProduct(), productDetailPage.getNameOfProduct());
     }
 
     @Test
     @Epic(value = "Wishlist manual")
     @Description("Test description: Wishlist was created manual and product is in there")
     public void checkManualCreateList() {
-        wishList.createListManually();
-        product.addInWishList().goToMyAccount();
-        assertEquals(wishList.productAdded().getNameOfProduct(), product.getNameOfProduct());
+        wishListPage.createListManually("Test List").choosingProduct();
+        productDetailPage.addInWishList().goToMyAccount().goToMyWishList();
+        assertEquals(wishListPage.productAdded().getNameOfProduct(), productDetailPage.getNameOfProduct());
     }
 
     @AfterEach

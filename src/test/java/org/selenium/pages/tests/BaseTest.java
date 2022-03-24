@@ -1,48 +1,37 @@
 package org.selenium.pages.tests;
 
+import io.qameta.allure.Step;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.selenium.driver.Driver;
 import org.selenium.pages.*;
-import org.selenium.utils.JsonParser;
+import org.selenium.utils.ListenerEvent;
 
+@ExtendWith(ListenerEvent.class)
 public abstract class BaseTest {
-    protected static WebDriver driver;
-    protected static WebDriverWait wait;
-    protected static JsonParser parser = new JsonParser();;
-    protected static MainPage mainPage;
-    protected static MyAccountPage account;
-    protected static RegistrationPage registration;
-    protected static LogInPage signIn;
-    protected static DressesPage dresses;
-    protected static CartPage cart;
-    protected static WishListPage wishList;
-    protected static ProductDetailPage product;
+
+    protected WebDriver driver = Driver.getInstance();
+    protected WebDriverWait wait = new WebDriverWait(driver, 30);
+    protected MainPage mainPage = new MainPage();
+    protected MyAccountPage myAccountPage = new MyAccountPage();
+    protected RegistrationPage registrationPage = new RegistrationPage();
+    protected LogInPage logInPage;
+    protected DressesPage dressesPage = new DressesPage();
+    protected CartPage cartPage = new CartPage();
+    protected WishListPage wishListPage = new WishListPage();
+    protected ProductDetailPage productDetailPage = new ProductDetailPage();
 
     @Before
+    @Step("Beginning the action")
     public void create() {
-        parser.createJson();
     }
 
-    @BeforeAll
-    public static void setUp() {
-        driver = Driver.getInstance();
-        wait = new WebDriverWait(driver, 30);
-        mainPage = new MainPage();
-        account = new MyAccountPage();
-        registration = new RegistrationPage();
-        signIn = new LogInPage();
-        dresses = new DressesPage();
-        cart = new CartPage();
-        wishList = new WishListPage();
-        product = new ProductDetailPage();
-    }
-
-    @AfterAll
-    public static void tearDown() {
-        //Driver.quit();
+    @After
+    @Step("Ending the action")
+    public void tearDown() {
+        Driver.quit();
     }
 }

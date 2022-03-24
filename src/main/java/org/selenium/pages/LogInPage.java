@@ -12,26 +12,17 @@ public class LogInPage extends BasePage {
     private By errorAvailableMail = By.xpath("//div[@id='create_account_error']//li");
 
     public MyAccountPage login() {
-        driver.findElement(emailSignIn).sendKeys(user.getEmail());
-        driver.findElement(passSignIn).sendKeys(user.getPassword());
+        driver.findElement(emailSignIn).sendKeys(defaultUser.getEmail());
+        driver.findElement(passSignIn).sendKeys(defaultUser.getPassword());
         driver.findElement(buttonSignIn).click();
         return new MyAccountPage();
     }
 
     public RegistrationPage registration() {
-        setInfoReg();
-        if (isElementPresent(errorAvailableMail)) {
-            new JsonParser().createJson();
-            new JsonParser().readUserFromGson();
-            driver.findElement(inputToCreateAccount).clear();
-            setInfoReg();
-        }
-        return new RegistrationPage();
-    }
-
-    private void setInfoReg() {
+        super.user = new JsonParser().createJson();
         driver.findElement(inputToCreateAccount).sendKeys(user.getEmail());
         driver.findElement(buttonCreateAccount).click();
+        return new RegistrationPage();
     }
 
 }

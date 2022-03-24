@@ -28,9 +28,9 @@ public class ProductDetailPage extends BasePage {
         return this;
     }
 
-    public WishListPage goToMyAccount() {
+    public MyAccountPage goToMyAccount() {
         driver.findElement(account).click();
-        return new MyAccountPage().goToMyWishList();
+        return new MyAccountPage();
     }
 
 }

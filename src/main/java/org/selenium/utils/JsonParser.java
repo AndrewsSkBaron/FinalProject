@@ -13,21 +13,21 @@ public class JsonParser {
     private static Faker faker = new Faker();
     private final Gson gson = new Gson();
 
-    public void createJson() {
+    public User createJson() {
         User newUser = new User(
-                faker.name().firstName(),
-                faker.name().lastName(),
-                random.generateEmail(5) + "@gmail.com",
-                random.generatePassword(8),
-                faker.company().name().toLowerCase(Locale.ROOT),
-                faker.address().streetAddress().toLowerCase(Locale.ROOT),
-                faker.address().streetAddress().toLowerCase(Locale.ROOT),
-                faker.address().city().toLowerCase(Locale.ROOT),
-                faker.address().zipCode().substring(0,6 -1),
-                "+"+faker.phoneNumber().cellPhone().stripIndent(),
-                "+"+faker.phoneNumber().cellPhone().stripIndent(),
-                faker.address().streetAddress().toLowerCase(Locale.ROOT),
-                faker.demographic().sex());
+            faker.name().firstName(),
+            faker.name().lastName(),
+            random.generateEmail(5) + "@gmail.com",
+            random.generatePassword(8),
+            faker.company().name().toLowerCase(Locale.ROOT),
+            faker.address().streetAddress().toLowerCase(Locale.ROOT),
+            faker.address().streetAddress().toLowerCase(Locale.ROOT),
+            faker.address().city().toLowerCase(Locale.ROOT),
+            faker.address().zipCode().substring(0,6 -1),
+            "+"+faker.phoneNumber().cellPhone().stripIndent(),
+            "+"+faker.phoneNumber().cellPhone().stripIndent(),
+            faker.address().streetAddress().toLowerCase(Locale.ROOT),
+            faker.demographic().sex());
         try {
             FileWriter writer = new FileWriter("src/main/resources/json/user.json");
             writer.write(new Gson().toJson(newUser));
@@ -37,6 +37,7 @@ public class JsonParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return newUser;
     }
 
     public User readUserFromGson() {

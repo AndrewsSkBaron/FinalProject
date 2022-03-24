@@ -2,7 +2,8 @@ package org.selenium.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class RegistrationPage extends BasePage {
     private By waitForm = By.xpath("//form[@id='account-creation_form']");

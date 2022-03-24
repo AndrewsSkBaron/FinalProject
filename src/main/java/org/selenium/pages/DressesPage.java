@@ -22,24 +22,25 @@ public class DressesPage extends BasePage {
     private By productAttribute = By.xpath("//span[@id='layer_cart_product_attributes']");
     private By productPrice = By.xpath("//span[@id='layer_cart_product_price']");
 
-    public List<Product> addToCart(int count, List<Product> products) {
+    public List<Product> addToCart(int count) {
         driver.findElement(categoryDresses).click();
         wait.until(visibilityOfElementLocated(containerProducts));
         Actions action = new Actions(driver);
-        for (WebElement item : driver.findElements(this.products)) {
-            if (products.size() != count) {
-                action.moveToElement(item).click(item.findElement(addToCartButton)).build().perform();
-                wait.until(visibilityOfElementLocated(popup));
-                String attributes = driver.findElement(productAttribute).getText();
-                String name = driver.findElement(productName).getText();
-                String color = attributes.substring(attributes.indexOf(""), attributes.indexOf(","));
-                String size = attributes.substring(attributes.indexOf(",") + 2);
-                String price = driver.findElement(productPrice).getText();
-                String priseSub = price.substring(price.indexOf("$") + 1);
-                double p = Double.valueOf(priseSub);
-                products.add(new Product(name, color, size, p));
-                driver.findElement(continueShop).click();
-            }
+        List<Product> products = new ArrayList<>(count);
+        List<WebElement> elements = driver.findElements(this.products);
+        for (int i = 0; i < count; i++) {
+            WebElement item = elements.get(i);
+            action.moveToElement(item).click(item.findElement(addToCartButton)).build().perform();
+            wait.until(visibilityOfElementLocated(popup));
+            String attributes = driver.findElement(productAttribute).getText();
+            String name = driver.findElement(productName).getText();
+            String color = attributes.substring(attributes.indexOf(""), attributes.indexOf(","));
+            String size = attributes.substring(attributes.indexOf(",") + 2);
+            String price = driver.findElement(productPrice).getText();
+            String priseSub = price.substring(price.indexOf("$") + 1);
+            double p = Double.valueOf(priseSub);
+            products.add(new Product(name, color, size, p));
+            driver.findElement(continueShop).click();
         }
         return products;
     }

@@ -7,10 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Driver {
     private static WebDriver webDriver;
-//    private static String browserName = "chrome";
-//    private static String typeDriver = "local";
-//   private String typeDriver = "remote";
-//   private String driverType = "sauceLab";
 
     private Driver() {
     }
