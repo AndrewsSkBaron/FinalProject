@@ -11,7 +11,6 @@ import java.util.Random;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-
 public class WishListPage extends BasePage {
     private Random random = new Random();
     private Alert alert;

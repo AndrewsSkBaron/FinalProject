@@ -1,10 +1,9 @@
-package org.selenium.pages.tests;
+package org.selenium.tests;
 
 import io.qameta.allure.Epic;
 import jdk.jfr.Description;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class LogInPageTest extends BaseTest {
 
@@ -14,7 +13,7 @@ public class LogInPageTest extends BaseTest {
     public void checkSignIn() {
         logInPage = mainPage.logIn();
         logInPage.login();
-        assertEquals(myAccountPage.getText(), "my account");
+        Assert.assertEquals(myAccountPage.getText(), "my account");
         mainPage.logOut();
     }
 

@@ -1,4 +1,4 @@
-package org.selenium.pages.tests;
+package org.selenium.tests;
 
 import com.github.javafaker.Faker;
 import io.qameta.allure.Description;
@@ -68,15 +68,6 @@ public class PageTest extends BaseTest {
     }
 
     @Test
-    @Epic(value = "Wishlist automation")
-    @Description("Test description: Wishlist was created automatically and product is in there")
-    public void checkAutoCreateList() {
-        String expectedResult = myAccountPage.goToMyWishList().createListAuto().choosingProduct().getNameOfProduct();
-        String actualResult = productDetailPage.addInWishList().goToMyAccount().goToMyWishList().productAdded().getNameOfProduct();
-        assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     @Epic(value = "Wishlist manual")
     @Description("Test description: Wishlist was created manual")
     public void checkManualCreateNameList() {
@@ -84,6 +75,15 @@ public class PageTest extends BaseTest {
         String expectedResult = nameOfList.toLowerCase(Locale.ROOT);
         productDetailPage = myAccountPage.goToMyWishList().createListManually(nameOfList).choosingProduct().addInWishList();
         String actualResult = productDetailPage.goToMyAccount().goToMyWishList().getCreateManualNameList();
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    @Epic(value = "Wishlist automation")
+    @Description("Test description: Wishlist was created automatically and product is in there")
+    public void checkAutoCreateList() {
+        String expectedResult = myAccountPage.goToMyWishList().createListAuto().choosingProduct().getNameOfProduct();
+        String actualResult = productDetailPage.addInWishList().goToMyAccount().goToMyWishList().productAdded().getNameOfProduct();
         assertEquals(expectedResult, actualResult);
     }
 
