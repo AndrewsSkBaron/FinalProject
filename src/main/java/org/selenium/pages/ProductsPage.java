@@ -1,20 +1,21 @@
 package org.selenium.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.selenium.ojb.Product;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-public class DressesPage extends BasePage {
-    private By categoryDresses = By.xpath("//div[@id='block_top_menu']/ul/li[2]/a");
+public class ProductsPage extends BasePage {
     private By popup = By.xpath("//div[@id='layer_cart']");
     private By continueShop = By.xpath("//span[@title='Continue shopping']");
-    private By containerProducts = By.xpath("//ul[@class='product_list grid row']");
     private By products = By.xpath("//ul[@class='product_list grid row']/li");
     private By addToCartButton = By.xpath(".//a[@title='Add to cart']");
 
@@ -22,9 +23,11 @@ public class DressesPage extends BasePage {
     private By productAttribute = By.xpath("//span[@id='layer_cart_product_attributes']");
     private By productPrice = By.xpath("//span[@id='layer_cart_product_price']");
 
+    public ProductsPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
+    }
+
     public List<Product> addToCart(int count) {
-        driver.findElement(categoryDresses).click();
-        wait.until(visibilityOfElementLocated(containerProducts));
         Actions action = new Actions(driver);
         List<Product> products = new ArrayList<>(count);
         List<WebElement> elements = driver.findElements(this.products);
@@ -46,10 +49,11 @@ public class DressesPage extends BasePage {
     }
 
     public double getTotalPrice(List<Product> products) {
+        DecimalFormat df = new DecimalFormat("#.##");
         double total = 0;
         for(Product product : products) {
             total += product.getPrice();
         }
-        return total;
+        return Double.parseDouble(df.format(total).replace("," , "."));
     }
 }

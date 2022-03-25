@@ -1,23 +1,23 @@
 package org.selenium.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.selenium.ojb.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
 public class CartPage extends BasePage {
-    private By cartButton = By.xpath("//a[@title='View my shopping cart']");
-    private By waitContainer = By.xpath("//div[@id='center_column']");
-    private By cartTotal = By.xpath("//span[@id='total_price']");
+    private By cartTotal = By.xpath("//td[@id='total_product']");
     private By rows = By.xpath("//table/tbody/tr");
 
+    public CartPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
+    }
+
     public List<Product> getCartList() {
-        driver.findElement(cartButton).click();
-        wait.until(visibilityOfElementLocated(waitContainer));
         List<Product> cartList = new ArrayList<>();
         for (WebElement row : driver.findElements(rows)) {
             String attribute = row.findElement(By.xpath("./td[2]/small/a")).getText();
@@ -29,10 +29,11 @@ public class CartPage extends BasePage {
             double p = Double.valueOf(priseSub);
             cartList.add(new Product(name, color, size, p));
         }
+        getTotalPrice();
         return cartList;
     }
 
-    public double getTotalCart() {
+    public double getTotalPrice() {
         String value = driver.findElement(cartTotal).getText();
         String valueSub = value.substring(value.indexOf("$") + 1);
         double v = Double.valueOf(valueSub);

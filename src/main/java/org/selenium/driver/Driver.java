@@ -12,15 +12,15 @@ public class Driver {
     }
 
     public static WebDriver getInstance() {
-        String browserName = System.getProperty("browser");
-        String typeDriver = System.getProperty("type");
+        String browserName = System.getProperty("browser", "chrome");
+        String typeDriver = System.getProperty("type", "local");
         if (webDriver == null) {
             WebDriverStrategy driverStrategy;
             switch (typeDriver.toLowerCase(Locale.ROOT)) {
                 case "local" -> driverStrategy = new LocalWebDriver();
                 case "remote" -> driverStrategy = new RemoteWDriver();
                 case "sauceLab" -> driverStrategy = new SauceLabWebDriver();
-                default -> throw new RuntimeException("Driver type fail: " + browserName);
+                default -> throw new RuntimeException("Driver type fail: " + typeDriver);
             }
             webDriver = driverStrategy.getWebDriver(browserName);
             Objects.requireNonNull(webDriver).manage().window().maximize();

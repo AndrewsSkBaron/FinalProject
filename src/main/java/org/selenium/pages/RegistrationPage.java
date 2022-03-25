@@ -1,7 +1,9 @@
 package org.selenium.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
@@ -32,6 +34,10 @@ public class RegistrationPage extends BasePage {
     private By buttonRegister = By.xpath("//button[@id='submitAccount']");
     private Select select;
 
+    public RegistrationPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
+    }
+
     public MyAccountPage createAccount(int data, int month, int year, String state, int country) {
         wait.until(visibilityOfElementLocated(waitForm));
         sendTextInformation();
@@ -42,7 +48,7 @@ public class RegistrationPage extends BasePage {
         selectedState(state);
         selectedCountry(country);
         driver.findElement(buttonRegister).click();
-        return new MyAccountPage();
+        return new MyAccountPage(driver, wait);
     }
 
     private void setCheckBox() {

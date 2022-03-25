@@ -1,6 +1,8 @@
 package org.selenium.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Locale;
 
@@ -14,6 +16,10 @@ public class ProductDetailPage extends BasePage {
     private By textPopup = By.xpath("//p[@class='fancybox-error']");
     private By closeButton = By.xpath("//a[@title='Close']");
     private By account = By.xpath("//a[@title='View my customer account']");
+
+    public ProductDetailPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
+    }
 
     public String getNameOfProduct() {
         wait.until(visibilityOfElementLocated(waitContainer));
@@ -30,7 +36,7 @@ public class ProductDetailPage extends BasePage {
 
     public MyAccountPage goToMyAccount() {
         driver.findElement(account).click();
-        return new MyAccountPage();
+        return new MyAccountPage(driver, wait);
     }
 
 }

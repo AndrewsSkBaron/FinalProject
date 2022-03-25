@@ -1,8 +1,7 @@
 package org.selenium.pages.tests;
 
-import io.qameta.allure.Step;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,28 +9,35 @@ import org.selenium.driver.Driver;
 import org.selenium.pages.*;
 import org.selenium.utils.ListenerEvent;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @ExtendWith(ListenerEvent.class)
 public abstract class BaseTest {
+    protected static WebDriver driver;
+    protected static WebDriverWait wait;
 
-    protected WebDriver driver = Driver.getInstance();
-    protected WebDriverWait wait = new WebDriverWait(driver, 30);
-    protected MainPage mainPage = new MainPage();
-    protected MyAccountPage myAccountPage = new MyAccountPage();
-    protected RegistrationPage registrationPage = new RegistrationPage();
+    protected MainPage mainPage;
+    protected RegistrationPage registrationPage;
     protected LogInPage logInPage;
-    protected DressesPage dressesPage = new DressesPage();
-    protected CartPage cartPage = new CartPage();
-    protected WishListPage wishListPage = new WishListPage();
-    protected ProductDetailPage productDetailPage = new ProductDetailPage();
+    protected MyAccountPage myAccountPage;
+    protected ProductsPage productsPage;
+    protected CartPage cartPage;
+    protected WishListPage wishListPage;
+    protected ProductDetailPage productDetailPage;
 
-    @Before
-    @Step("Beginning the action")
-    public void create() {
+    @BeforeAll
+    //@Step("Beginning the action")
+    public static void create() {
+        driver = Driver.getInstance();
+        wait = new WebDriverWait(driver, 30);
+        System.out.println("<----- | Browser Session Started | ----->");
     }
 
-    @After
-    @Step("Ending the action")
-    public void tearDown() {
+    @AfterAll
+    //@Step("Ending the action")
+    public static void tearDown() {
         Driver.quit();
+        System.out.println("<----- | Browser Session End | ----->");
     }
 }

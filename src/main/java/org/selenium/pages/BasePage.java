@@ -12,8 +12,13 @@ import org.selenium.utils.JsonParser;
 public abstract class BasePage {
     protected User user = new JsonParser().readUserFromGson();
     protected DefaultUser defaultUser = new DefaultUser("testReg27@gmail.com", "test070501");
-    protected WebDriver driver = Driver.getInstance();
-    protected WebDriverWait wait = new WebDriverWait(driver, 30);
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+
+    public BasePage(WebDriver driver, WebDriverWait wait) {
+        this.driver = driver;
+        this.wait = wait;
+    }
 
     protected boolean isElementPresent(By element) {
         try {
