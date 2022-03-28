@@ -29,7 +29,6 @@ public class CartPage extends BasePage {
             double p = Double.valueOf(priseSub);
             cartList.add(new Product(name, color, size, p));
         }
-        getTotalPrice();
         return cartList;
     }
 

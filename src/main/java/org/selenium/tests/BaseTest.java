@@ -1,5 +1,6 @@
 package org.selenium.tests;
 
+import com.github.javafaker.Faker;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,6 +15,7 @@ import org.selenium.utils.ListenerEvent;
 public abstract class BaseTest {
     protected static WebDriver driver;
     protected static WebDriverWait wait;
+    protected static Faker faker;
 
     protected MainPage mainPage;
     protected RegistrationPage registrationPage;
@@ -28,6 +30,7 @@ public abstract class BaseTest {
     public static void create() {
         driver = Driver.getInstance();
         wait = new WebDriverWait(driver, 30);
+         faker = new Faker();
     }
 
     @AfterAll

@@ -21,15 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PageTest extends BaseTest {
 
-    private Date date = new Date(System.currentTimeMillis());
-    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    private Faker faker = new Faker();
-
     @BeforeEach
     @Step("Beginning the action")
     public void getStart() {
         mainPage = new MainPage(driver, wait);
-        productsPage = new ProductsPage(driver,wait);
         productsPage = new ProductsPage(driver,wait);
         productDetailPage = new ProductDetailPage(driver, wait);
         logInPage = mainPage.logIn();
@@ -60,7 +55,9 @@ public class PageTest extends BaseTest {
     @Test
     @Epic(value = "Wishlist automation")
     @Description("Test description: Wishlist was created automatically")
-    public void checkAutoCreateListData() {;
+    public void checkAutoCreateListData() {
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         productDetailPage = myAccountPage.goToMyWishList().createListAuto().choosingProduct().addInWishList();
         String actualResult = productDetailPage.goToMyAccount().goToMyWishList().getDataCreateAutoList();
         String expectedResult = formatter.format(date);
